@@ -5,7 +5,7 @@ usage() {
   cat <<EOF
 Usage: ${0##*/} [OPTION]... INPUT_VID OUTPUT_VID
 Script that uses ffmpeg to trancode INPUT_VID so that it is streaming friendly.
-Defaults to an average 7Mbps bit rate, coded h265 (HECV) and HD resolution.
+Defaults to an average 7Mbps bit rate, coded h264 and HD resolution.
 
 Options:
   -b        video bit rate for the OUTPUT_VID in ffmpeg format
@@ -26,7 +26,7 @@ error() {
 }
 
 BIT_RATE=7M
-CODEC=hevc
+CODEC=h264
 RESOLUTION=1920x1080
 while getopts "hb:c:r:" option
 do
