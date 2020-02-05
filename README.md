@@ -34,5 +34,8 @@ cd /path/where/you/want/to/organize/your/files
 
 Making a video streaming friendly using *ffmpeg*
 ```bash
-./make_video_streaming_friendly.sh 4K_h264_VID_WITH_INSANE_BITRATE.mp4 HD_h265_VID_WITH_7Mbps_BITRATE.mp4
+# Encode new files with the _tr suffix.
+./make_video_streaming_friendly.sh /dir/with/videos
+# Inplace encode
+./make_video_streaming_friendly.sh -i /dir/with/videos
 ```
