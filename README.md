@@ -32,10 +32,15 @@ cd /path/where/you/want/to/organize/your/files
 # This will move files in YYYY/MM dirs.
 ```
 
-Making a video streaming friendly using *ffmpeg*
+Making a video streaming friendly using *ffmpeg*:
 ```bash
 # Encode new files with the _tr suffix.
 ./make_video_streaming_friendly.sh /dir/with/videos
 # Inplace encode
 ./make_video_streaming_friendly.sh -i /dir/with/videos
+```
+
+Splitting audio files with cue using *cuetools, shntool and ffmpeg*:
+```bash
+./split_album.sh AUDIO_FILE
 ```
