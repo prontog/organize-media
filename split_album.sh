@@ -45,16 +45,25 @@ fi
 
 AUDIO_TYPE="${AUDIO_FILE##*.}"
 
-# Split single file
-cuebreakpoints "$CUE_FILE" | sed 's/$/0/' | shnsplit -o $AUDIO_TYPE "$AUDIO_FILE"
-
 # Convert to flac if necessary
 if [[ $AUDIO_TYPE != flac ]]; then
-  find -name 'split-track*' | while read f; do
-    ffmpeg -nostdin -i "$f" "${f/.${AUDIO_TYPE}/.flac}"
-    rm "$f"
-  done
+  ffmpeg -nostdin -i "$AUDIO_FILE" "${AUDIO_FILE/.${AUDIO_TYPE}/.flac}"
+  rm "$AUDIO_FILE"
+  AUDIO_FILE="${AUDIO_FILE/.${AUDIO_TYPE}/.flac}"
+  AUDIO_TYPE=flac
 fi
+
+
+# Split single file
+cuebreakpoints "$CUE_FILE" | sed 's/$/0/' | shnsplit -DD -o $AUDIO_TYPE "$AUDIO_FILE"
+
+# # Convert to flac if necessary
+# if [[ $AUDIO_TYPE != flac ]]; then
+#   find -name 'split-track*' | while read f; do
+#     ffmpeg -nostdin -i "$f" "${f/.${AUDIO_TYPE}/.flac}"
+#     rm "$f"
+#   done
+# fi
 
 # Retag split files
 cuetag "$CUE_FILE" split-track*flac
