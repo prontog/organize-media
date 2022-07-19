@@ -55,7 +55,7 @@ fi
 
 
 # Split single file
-cuebreakpoints "$CUE_FILE" | sed 's/$/0/' | shnsplit -DD -o $AUDIO_TYPE "$AUDIO_FILE"
+cuebreakpoints "$CUE_FILE" | sed 's/$/0/' | shnsplit -o $AUDIO_TYPE "$AUDIO_FILE"
 
 # # Convert to flac if necessary
 # if [[ $AUDIO_TYPE != flac ]]; then
