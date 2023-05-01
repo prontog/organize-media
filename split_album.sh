@@ -21,15 +21,15 @@ error() {
 
 while getopts "h" option
 do
-	case $option in
-		h) usage;;
-		*) usage;;
-	esac
+  case $option in
+    h) usage;;
+    *) usage;;
+  esac
 done
 shift $(( $OPTIND - 1 ))
 
 if [[ ! -f $1 ]]; then
-	error AUDIO_FILE is not a file
+  error AUDIO_FILE is not a file [$1]
 fi
 
 set -o errexit
@@ -53,6 +53,12 @@ if [[ $AUDIO_TYPE != flac ]]; then
   AUDIO_TYPE=flac
 fi
 
+# Rename audio and cue files to avoid cases where the audio file has the exact
+# name with a generated track file.
+mv "$AUDIO_FILE" _temp.flac
+AUDIO_FILE=_temp.flac
+mv "$CUE_FILE" _temp.cue
+CUE_FILE=_temp.cue
 
 # Split single file
 cuebreakpoints "$CUE_FILE" | sed 's/$/0/' | shnsplit -o $AUDIO_TYPE "$AUDIO_FILE"
