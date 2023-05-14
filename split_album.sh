@@ -76,7 +76,7 @@ cuetag "$CUE_FILE" split-track*flac
 
 # Rename from split-track* to  TRACKNUMBER - TITLE
 for f in split-track*flac; do
-  TITLE=$(metaflac "$f" --show-tag=TITLE | sed 's/.*=//g')
+  TITLE=$(metaflac "$f" --show-tag=TITLE | sed 's/.*=//g' | sed 's@/@-@g')
   if [[ -n $TITLE ]]; then
     TRACKNUMBER=$(metaflac "$f" --show-tag=TRACKNUMBER | sed 's/.*=//g')
     mv "$f" "$(printf %02g $TRACKNUMBER) - ${TITLE}.flac";
